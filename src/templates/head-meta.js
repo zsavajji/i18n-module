@@ -82,10 +82,11 @@ export function nuxtI18nHead ({ addDirAttribute = false, addSeoAttributes = fals
 
       localeMap.set(localeIso, locale)
     }
-
     for (const [iso, mapLocale] of localeMap.entries()) {
       const localePath = this.switchLocalePath(mapLocale.code)
-      if (localePath) {
+      const _resolvable = options.vuex && !!this.$store && !!this.$store.state.i18n?.routeParams[mapLocale.code]
+
+      if (_resolvable && localePath) {
         link.push({
           hid: `i18n-alt-${iso}`,
           rel: 'alternate',
