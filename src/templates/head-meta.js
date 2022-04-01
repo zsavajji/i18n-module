@@ -71,18 +71,13 @@ export function nuxtI18nHead ({ addDirAttribute = false, addSeoAttributes = fals
     /** @type {Map<string, import('../../types').LocaleObject>} */
     const localeMap = new Map()
     for (const locale of locales) {
-      const localeIso = locale.iso
+      const { iso: localeIso, disableHref } = locale
+      if (disableHref) { continue }
 
       if (!localeIso) {
         // eslint-disable-next-line no-console
         console.warn(formatMessage('Locale ISO code is required to generate alternate link'))
         continue
-      }
-
-      const [language, region] = localeIso.split('-')
-
-      if (language && region && (locale.isCatchallLocale || !localeMap.has(language))) {
-        localeMap.set(language, locale)
       }
 
       localeMap.set(localeIso, locale)
