@@ -88,12 +88,23 @@ export function nuxtI18nHead ({ addDirAttribute = false, addSeoAttributes = fals
         (options.vuex && !!this.$store && !!this.$store.state.i18n?.routeParams[mapLocale.code])
 
       if (_resolvable && localePath) {
-        link.push({
-          hid: `i18n-alt-${iso}`,
-          rel: 'alternate',
-          href: toAbsoluteUrl(localePath, baseUrl),
-          hreflang: iso
-        })
+        if (mapLocale.countries) {
+          mapLocale.countries.forEach(country => {
+            link.push({
+              hid: `i18n-alt-${country}`,
+              rel: 'alternate',
+              href: toAbsoluteUrl(localePath, baseUrl),
+              hreflang: country
+            })
+          })
+        } else {
+          link.push({
+            hid: `i18n-alt-${iso}`,
+            rel: 'alternate',
+            href: toAbsoluteUrl(localePath, baseUrl),
+            hreflang: iso
+          })
+        }
       }
     }
 
