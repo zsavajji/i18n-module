@@ -14,7 +14,7 @@ export interface LocaleObject extends Record<string, any> {
   file?: string
   isCatchallLocale?: boolean,
   disableHref?: boolean,
-  countries: string[],
+  countries?: string[],
   iso?: string
 }
 
