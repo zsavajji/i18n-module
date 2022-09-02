@@ -108,8 +108,14 @@ export function nuxtI18nHead ({ addDirAttribute = false, addSeoAttributes = fals
       }
     }
 
-    if (options.defaultLocale) {
-      const localePath = this.switchLocalePath(options.defaultLocale)
+    if (options.defaultLocale || options.xDefault) {
+      let localePath
+      if (options.xDefault) {
+        localePath = this.switchLocalePath(options.xDefault)
+      } else {
+        localePath = this.switchLocalePath(options.defaultLocale)
+      }
+
       if (localePath) {
         link.push({
           hid: 'i18n-xd',

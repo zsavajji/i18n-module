@@ -12,7 +12,9 @@ export interface LocaleObject extends Record<string, any> {
   dir?: Directions
   domain?: string
   file?: string
-  isCatchallLocale?: boolean
+  isCatchallLocale?: boolean,
+  disableHref?: boolean,
+  countries: string[],
   iso?: string
 }
 
@@ -62,6 +64,7 @@ export interface Options extends BaseOptions {
       [key: string]: false | string
     }
   }
+  xDefault?: Locale,
   parsePages?: boolean
   rootRedirect?: string | null | RootRedirectOptions
   routesNameSeparator?: string
