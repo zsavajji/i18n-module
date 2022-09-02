@@ -20,6 +20,7 @@ export interface LocaleObject extends Record<string, any> {
 
 export interface DetectBrowserLanguageOptions {
   alwaysRedirect?: boolean
+  cookieAge?: number
   cookieCrossOrigin?: boolean
   cookieDomain?: string | null
   cookieKey?: string
