@@ -85,7 +85,7 @@ export function nuxtI18nHead ({ addDirAttribute = false, addSeoAttributes = fals
     for (const [iso, mapLocale] of localeMap.entries()) {
       const localePath = this.switchLocalePath(mapLocale.code)
       const _resolvable = (this.$route?.params && !Object.keys(this.$route?.params).length) ||
-        (options.vuex && !!this.$store && !!this.$store.state.i18n?.routeParams[mapLocale.code])
+        (options.vuex && (this.$i18n.locale === mapLocale.code || !!this.$store?.state.i18n?.routeParams[mapLocale.code]))
 
       if (_resolvable && localePath) {
         if (mapLocale.countries) {
