@@ -47,8 +47,7 @@ export function nuxtI18nHead ({ addDirAttribute = false, addSeoAttributes = fals
 
     const locales = /** @type {import('../../types').LocaleObject[]} */(this.$i18n.locales)
 
-    addHreflangLinks.bind(this)(locales, this.$i18n.__baseUrl, metaObject.link)
-    addCanonicalLinks.bind(this)(this.$i18n.__baseUrl, metaObject.link, addSeoAttributes)
+    addCanonicalLinks.bind(this)(this.$i18n.__baseUrl, metaObject.link, locales, addSeoAttributes)
     addCurrentOgLocale.bind(this)(currentLocale, currentLocaleIso, metaObject.meta)
     addAlternateOgLocales.bind(this)(locales, currentLocaleIso, metaObject.meta)
   }
@@ -132,9 +131,10 @@ export function nuxtI18nHead ({ addDirAttribute = false, addSeoAttributes = fals
    *
    * @param {string} baseUrl
    * @param {import('../../types/vue').NuxtI18nMeta['link']} link
+   * @param {import('../../types').LocaleObject[]} locales
    * @param {NonNullable<import('../../types/vue').NuxtI18nHeadOptions['addSeoAttributes']>} seoAttributesOptions
    */
-  function addCanonicalLinks (baseUrl, link, seoAttributesOptions) {
+  function addCanonicalLinks (baseUrl, link, locales, seoAttributesOptions) {
     const currentRoute = this.localeRoute({
       ...this.$route,
       name: this.getRouteBaseName()
@@ -165,6 +165,10 @@ export function nuxtI18nHead ({ addDirAttribute = false, addSeoAttributes = fals
         if (queryString) {
           href = `${href}?${queryString}`
         }
+      }
+
+      if (href === toAbsoluteUrl(currentRoute.fullPath, baseUrl)) {
+        addHreflangLinks.bind(this)(locales, baseUrl, link)
       }
 
       link.push({
