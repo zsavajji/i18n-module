@@ -6,7 +6,7 @@ import { makeRoutes } from '../helpers/routes'
  * @this {import('@nuxt/types/config/module').ModuleThis}
  *
  * @param {import('../../types/internal').ResolvedOptions} options
- * @return {import('@nuxt/types/config/router').NuxtOptionsRouter['extendRoutes']}
+ * @return {Required<import('@nuxt/types/config/router').NuxtOptionsRouter>['extendRoutes']}
  */
 export function createExtendRoutesHook (options) {
   const nuxtOptions = this.options
@@ -43,12 +43,10 @@ export function createExtendRoutesHook (options) {
  */
 export async function buildHook (options) {
   if (options.strategy === STRATEGIES.NO_PREFIX && options.differentDomains) {
-    // eslint-disable-next-line no-console
     console.warn(formatMessage('The `differentDomains` option and `no_prefix` strategy are not compatible. Change strategy or disable `differentDomains` option.'))
   }
 
   if ('forwardedHost' in options) {
-    // eslint-disable-next-line no-console
     console.warn(formatMessage('The `forwardedHost` option is deprecated. You can safely remove it. See: https://github.com/nuxt-community/i18n-module/pull/630.'))
   }
 
